@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ImportSchedule.MainPage">
+
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentView Grid.Row="1" Grid.Column="0" Padding="10">
+            <Label Text="Группа" HorizontalTextAlignment="End" />
+        </ContentView>
+        <ContentView Grid.Row="1" Grid.Column="1" Padding="10">
+            <Picker x:Name="picker" Title="Выберите группу" ItemsSource="{Binding Groups}" ItemDisplayBinding="{Binding Title}">
+                <Picker.Items >
+                    
+                </Picker.Items>
+            </Picker>
+        </ContentView>
+
+    </Grid>
+</ContentPage>

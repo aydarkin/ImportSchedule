@@ -8,13 +8,12 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
+using ImportSchedule.Base;
 
-namespace ImportSchedule
+namespace ImportSchedule.ViewModel
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private List<Group> _groups;
         public List<Group> Groups 
         { 
@@ -22,12 +21,12 @@ namespace ImportSchedule
             set
             {
                 _groups = value;
-                OnPropertyChanged("Groups");
+                RaisePropertyChanged("Groups");
             }
         }
         private readonly HttpClient http;
 
-        public MainPageViewModel()
+        public MainViewModel()
         {
             _groups = new List<Group>();
 
@@ -35,11 +34,11 @@ namespace ImportSchedule
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:
-                    this.http = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
+                    http = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
                     break;
                 default:
                     ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-                    this.http = new HttpClient(new HttpClientHandler());
+                    http = new HttpClient(new HttpClientHandler());
                     break;
             }
 
@@ -57,13 +56,22 @@ namespace ImportSchedule
                 HttpContent responseContent = response.Content;
                 var json = await responseContent.ReadAsStringAsync();
 
-                Groups = JObject.Parse(json)["body"].Select(g => new Group((int)g["id"], (string)g["title"])).ToList();
+                Groups = JObject.Parse(json)["body"]
+                    .Select(g => new Group((int)g["id"], (string)g["title"]))
+                    .OrderBy(g => g.Title)
+                    .ToList();
             }
         }
 
-        protected void OnPropertyChanged(string propName)
+        private Group _selected = new Group(0, "Группа");
+        public Group Selected
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            get { return _selected; }
+            set
+            {
+                _selected = value;
+                RaisePropertyChanged("Selected");
+            }
         }
     }
 }

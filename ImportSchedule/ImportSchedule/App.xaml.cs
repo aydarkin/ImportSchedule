@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImportSchedule.View;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,8 +10,7 @@ namespace ImportSchedule
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage(new MainPageViewModel());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

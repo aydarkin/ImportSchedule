@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ImportSchedule.View.MainPage">
+
+    <RelativeLayout>
+        <Label 
+            x:Name="lbl"
+            Text="{Binding Selected.Title}" 
+            HorizontalTextAlignment="End"
+            VerticalOptions="Center"
+            Margin="0 0 16 0"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Constant=64}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+                Property=Height,
+                Factor=0.05}"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=32}"
+            />
+        <Picker 
+            x:Name="picker"
+            VerticalOptions="Center"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Constant=64}"
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
+                ElementName=lbl, Property=Y}"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, 
+                ElementName=lbl, Property=X, Constant=64}"
+            Title="Выберите группу" 
+            SelectedItem="{Binding Selected, Mode=TwoWay}" 
+            ItemsSource="{Binding Groups}" 
+            ItemDisplayBinding="{Binding Title}" 
+        />
+        
+        <ScrollView
+            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
+                ElementName=picker, Property=Y, Constant=32}">
+            <ListView
+            x:Name="searchResults"
+            ItemsSource="{Binding Groups}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Title}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+
+    </RelativeLayout>
+</ContentPage>

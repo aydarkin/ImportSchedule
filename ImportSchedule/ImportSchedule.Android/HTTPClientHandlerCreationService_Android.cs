@@ -1,5 +1,6 @@
 ﻿using Android.Net;
 using ImportSchedule.Droid;
+using ImportSchedule.Base;
 using Javax.Net.Ssl;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(HTTPClientHandlerCreationService_Android))]
 namespace ImportSchedule.Droid
 {
-    public class HTTPClientHandlerCreationService_Android : ImportSchedule.IHTTPClientHandlerCreationService
+    public class HTTPClientHandlerCreationService_Android : IHTTPClientHandlerCreationService
     {
         public HttpClientHandler GetInsecureHandler()
         {

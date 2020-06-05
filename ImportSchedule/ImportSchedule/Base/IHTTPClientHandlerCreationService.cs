@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace ImportSchedule
+namespace ImportSchedule.Base
 {
     public interface IHTTPClientHandlerCreationService
     {

@@ -6,46 +6,33 @@
              mc:Ignorable="d"
              x:Class="ImportSchedule.View.MainPage">
 
-    <RelativeLayout>
-        <Label 
-            x:Name="lbl"
-            Text="{Binding Selected.Title}" 
-            HorizontalTextAlignment="End"
-            VerticalOptions="Center"
-            Margin="0 0 16 0"
-            RelativeLayout.HeightConstraint="{ConstraintExpression Constant=64}"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
-                Property=Height,
-                Factor=0.05}"
-            RelativeLayout.XConstraint="{ConstraintExpression Type=Constant, Constant=32}"
+    <StackLayout
+        Margin="4, 8">
+        <SearchBar 
+            Placeholder="Введите группу"
+            x:Name="searchBar"
+            SearchCommand="{Binding PerformSearch}"
+            SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
             />
-        <Picker 
-            x:Name="picker"
-            VerticalOptions="Center"
-            RelativeLayout.HeightConstraint="{ConstraintExpression Constant=64}"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
-                ElementName=lbl, Property=Y}"
-            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView, 
-                ElementName=lbl, Property=X, Constant=64}"
-            Title="Выберите группу" 
-            SelectedItem="{Binding Selected, Mode=TwoWay}" 
-            ItemsSource="{Binding Groups}" 
-            ItemDisplayBinding="{Binding Title}" 
-        />
-        
         <ScrollView
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, 
-                ElementName=picker, Property=Y, Constant=32}">
+            x:Name="list"
+            Padding="16,8">
             <ListView
-            x:Name="searchResults"
-            ItemsSource="{Binding Groups}" >
+                x:Name="searchResults"
+                ItemsSource="{Binding Groups}"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="True"
+                VerticalOptions="Start"
+                >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Title}"/>
+                        <TextCell Text="{Binding Title}" TextColor="Black" DetailColor="Azure"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollView>
-
-    </RelativeLayout>
+        <Button
+            Text="Импорт"
+            HorizontalOptions="FillAndExpand"/>
+    </StackLayout>
 </ContentPage>

@@ -20,7 +20,6 @@ namespace ImportSchedule.View
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
-
             BindingContext = ViewModel;
         }
     }

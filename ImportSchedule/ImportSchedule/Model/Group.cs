@@ -6,14 +6,20 @@ namespace ImportSchedule
 {
     public class Group
     {
-        public Group(int id, string title)
+        public Group(string name, string faculty = "", int year = 0)
         {
-            Id = id;
-            Title = title;
+            Name = name;
+            Faculty = faculty;
+            Year = year;
         }
 
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public int Year { get; set; }
+        public string Faculty { get; set; }
+        public string Name { get; set; }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

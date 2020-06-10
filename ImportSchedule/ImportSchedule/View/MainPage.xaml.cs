@@ -21,6 +21,17 @@ namespace ImportSchedule.View
             InitializeComponent();
             ViewModel = new MainViewModel();
             BindingContext = ViewModel;
+
+        }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            searchBar.SearchCommand.Execute(searchBar.SearchCommandParameter);
+        }
+
+        private void searchResults_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            searchBar.Text = searchResults.SelectedItem.ToString();
         }
     }
 }

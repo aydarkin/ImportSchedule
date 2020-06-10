@@ -6,33 +6,74 @@
              mc:Ignorable="d"
              x:Class="ImportSchedule.View.MainPage">
 
-    <StackLayout
-        Margin="4, 8">
+    <StackLayout>
+        <ContentView 
+            HeightRequest="96"
+            BackgroundColor="#3498db">
+            <Label 
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                FontSize="Large"  
+                Text="Импорт расписания УГАТУ"
+                TextColor="White"/>
+        </ContentView>
         <SearchBar 
             Placeholder="Введите группу"
             x:Name="searchBar"
             SearchCommand="{Binding PerformSearch}"
+            TextChanged="searchBar_TextChanged"
             SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
             />
         <ScrollView
-            x:Name="list"
-            Padding="16,8">
+            Padding="0,8">
             <ListView
                 x:Name="searchResults"
                 ItemsSource="{Binding Groups}"
+                SelectedItem="{Binding SelectedGroup}"
                 CachingStrategy="RecycleElement"
                 HasUnevenRows="True"
                 VerticalOptions="Start"
+                ItemSelected="searchResults_ItemSelected"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding Title}" TextColor="Black" DetailColor="Azure"/>
+                        <ViewCell>
+                            <StackLayout Padding="16,8">
+                                <Label FontSize="Small" Text="{Binding Faculty}" Margin="0,0,0,2"/>
+                                <Label FontSize="Large" Text="{Binding Name}" />
+                            </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollView>
-        <Button
-            Text="Импорт"
-            HorizontalOptions="FillAndExpand"/>
+
+        <StackLayout
+            Margin="4,8">
+            <Label Text="Семестр" Margin="4,16,0,0"/>
+            <Picker
+                x:Name="semesterPicker"
+                Title="Выберите семестр"
+                ItemsSource="{Binding Semesters}"
+                ItemDisplayBinding="{Binding Title}"
+                SelectedItem="{Binding SelectedSemester}"
+            >
+            </Picker>
+            <Button
+                Text="Импорт"
+                IsEnabled="{Binding IsDoneLoading}"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,8,0,0"
+                Command="{Binding Import}"
+                BackgroundColor="#3498db"
+                TextColor="White"/>
+            <Button
+                Text="Очистить календарь"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,8,0,16"
+                Command="{Binding ClearCalendar}"
+                BackgroundColor="#f44336"
+                TextColor="White"/>
+        </StackLayout>
     </StackLayout>
 </ContentPage>
